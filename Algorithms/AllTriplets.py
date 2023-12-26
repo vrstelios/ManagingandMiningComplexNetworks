@@ -26,8 +26,8 @@ class FoundAllTriplets:
                         node_j = edges_list[j][1]
                         triangles.add(tuple(sorted([common_node, node_i, node_j])))
 
-        print("Triangles are:", triangles)
-        print("Number of triangles:", len(triangles))
+        print("Triangles are:", triangles, "For AllTriplets")
+        print("Number of triangles:", len(triangles), "For AllTriplets")
 
         end_time = time.time()
         print("Execution time:", end_time - start_time)

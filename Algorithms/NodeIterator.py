@@ -14,7 +14,6 @@ class FoundNodeIterator:
 
         node_List = G.nodes()
         triangles = set()
-        node_pairs = []
 
         for i in node_List:
             neighbors = list(G.neighbors(i))  # found the neighbors
@@ -26,11 +25,9 @@ class FoundNodeIterator:
             node_pairs = [(neighbor1, neighbor2) for idx, neighbor1 in enumerate(neighbors) for neighbor2 in neighbors[idx + 1:]]
             # checked if these pairs are edges in the pair
             for pair in node_pairs:
-                if G.has_edge(pair[0], pair[1]):
+                if pair in G.edges():
                     triangle_pair_of_root = list(pair) + [i]
-                    sorted_triangle = tuple(sorted(triangle_pair_of_root))
-                    if sorted_triangle not in triangles:
-                        triangles.add(sorted_triangle)
+                    triangles.add(tuple(sorted(triangle_pair_of_root)))
 
         print("Triangles are:", triangles, "For Node iterator")
         print("Number of triangles:", len(triangles), "For Node iterator")
@@ -39,4 +36,4 @@ class FoundNodeIterator:
         print("Execution time:", end_time - start_time)
 
         # Number of triangles: 87254
-        # Execution time: 0.5020315647125244
+        # Execution time: 0.9547388553619385

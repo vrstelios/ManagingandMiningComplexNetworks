@@ -6,12 +6,11 @@ from Algorithms import Doulion
 def main():
     # call the algorithms
     # AllTriplets
-    AllTriplets.FoundAllTriplets().found_all_triplets()
+    #AllTriplets.FoundAllTriplets().found_all_triplets()
     # NodeIterator
     #NodeIterator.FoundNodeIterator().found_node_iterator()
     # CompactForward
-    #CompactForward.FoundCompactForward.found_compact_forward()
-    #CompactForward.FoundCompactForward.found_compact_forward()
+    CompactForward.FoundCompactForward.found_compact_forward()
     #Doulion
     #Doulion.Doulion.Sparsify('Graphs/tvshow_edges.csv', 0.8)
 

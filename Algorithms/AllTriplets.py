@@ -43,6 +43,6 @@ class FoundAllTriplets:
         print("Execution time:", end_time - start_time)
 
         # Number of triangles: 48260
-        # Execution time: 0.6750340461730957
+        # Execution time: 2.0590288639068604
 
 

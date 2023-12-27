@@ -18,10 +18,6 @@ class FoundNodeIterator:
         for i in node_List:
             neighbors = list(G.neighbors(i))  # found the neighbors
             # creates pairs of neighbours
-            #for neighbor1 in neighbors:
-            #    for neighbor2 in neighbors:
-            #        if neighbor1 != neighbor2:
-            #            node_pairs.append((neighbor1, neighbor2))
             node_pairs = [(neighbor1, neighbor2) for idx, neighbor1 in enumerate(neighbors) for neighbor2 in neighbors[idx + 1:]]
             # checked if these pairs are edges in the pair
             for pair in node_pairs:

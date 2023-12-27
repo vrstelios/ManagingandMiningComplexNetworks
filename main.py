@@ -8,9 +8,9 @@ def main():
     # AllTriplets
     #AllTriplets.FoundAllTriplets().found_all_triplets()
     # NodeIterator
-    NodeIterator.FoundNodeIterator().found_node_iterator()
+    #NodeIterator.FoundNodeIterator().found_node_iterator()
     # CompactForward
-    #CompactForward.FoundCompactForward.found_compact_forward()
+    CompactForward.FoundCompactForward.found_compact_forward()
 
 
 

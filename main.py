@@ -1,7 +1,7 @@
 from Algorithms import AllTriplets
 from Algorithms import NodeIterator
 from Algorithms import CompactForward
-
+from Algorithms import Doulion
 
 def main():
     # call the algorithms
@@ -11,7 +11,9 @@ def main():
     #NodeIterator.FoundNodeIterator().found_node_iterator()
     # CompactForward
     CompactForward.FoundCompactForward.found_compact_forward()
-
+    #CompactForward.FoundCompactForward.found_compact_forward()
+    #Doulion
+    Doulion.Doulion.Sparsify('Graphs/tvshow_edges.csv', 0.8)
 
 
 

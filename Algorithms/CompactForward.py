@@ -9,51 +9,31 @@ class FoundCompactForward:
     def found_compact_forward():
         start_time = time.time()
 
-        df = pd.read_csv('Graphs/tvshow_edges.csv', delimiter=',')
+        # df = pd.read_csv('Graphs/tvshow_edges.csv', delimiter=',')
+        df = pd.read_csv('Graphs/ca-GrQc.csv', delimiter=',')
         G = nx.from_pandas_edgelist(df, 'node_1', 'node_2')
 
-        visited_nodes = set()
-        triangles = []
+        triangles = set()
 
-        degrees = sorted(G.degree, key=lambda x: x[1], reverse=True)
+        for edge in G.edges():
+            u, v = edge
+            # returns an iterative object providing the common neighbours of nodes u and v
+            common_neighbors = nx.common_neighbors(G, u, v)
 
-        sorted_nodes_by_degree = [node for node, degree in degrees]
+            for w in common_neighbors:
+                # Check if the triangle has already been identified and check accordingly to avoid duplicates
+                if u != w and v != w and u != v and w in G[u] and w in G[v] and u in G[v]:
+                    triangles.add(tuple(sorted([u, v, w])))
 
-        h = {node: position for position, node in enumerate(sorted_nodes_by_degree)}
 
-        for node in sorted_nodes_by_degree:
-            visited_nodes.add(node)
-            neighbors_node = list(G.neighbors(node))
-
-            # For each node that has not been visited in its neighbours
-            for k in [n for n in neighbors_node if n not in visited_nodes]:
-                neighbors_k = list(G.neighbors(k))
-
-                i = j = 0
-                # looking the neighbors
-                while i < len(neighbors_k) and j < len(neighbors_node):
-                    # It uses the positions of nodes in the sorted list to identify triangles
-                    u_ = neighbors_k[i]
-                    v_ = neighbors_node[j]
-
-                    if h[u_] < h[v_]:
-                        i += 1
-                    elif h[u_] > h[v_]:
-                        j += 1
-                    else:
-                        triangles.append(sorted([k, node, u_]))
-                        i += 1
-                        j += 1
-
-        triangles_set = list(set(map(tuple, triangles)))
-        print("Triangles are:", triangles_set, "For Compact Forward")
-        print("Number of triangles:", len(triangles_set), "For Compact Forward")
+        print("Triangles are:", triangles, "For Compact Forward")
+        print("Number of triangles:", len(triangles), "For Compact Forward")
 
         end_time = time.time()
         print("Execution time:", end_time - start_time)
 
-        # Number of triangles: 36071
-        # Execution time: 0.3381192684173584
+        # Number of triangles: 48260
+        # Execution time: 1.2880325317382812
 
 
 

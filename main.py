@@ -8,12 +8,14 @@ def main():
     # AllTriplets
     #AllTriplets.FoundAllTriplets().found_all_triplets()
     # NodeIterator
-    #NodeIterator.FoundNodeIterator().found_node_iterator()
+    NodeIterator.FoundNodeIterator().found_node_iterator()
     # CompactForward
     #CompactForward.FoundCompactForward.found_compact_forward()
     #Doulion
-    result = Doulion.Doulion.Sparcify('Graphs/tvshow_edges.csv', 0.8)
-    print(result)
+    Doulion.Doulion.Sparsify('Graphs/tvshow_edges.csv', 0.8)
+
+    NodeIterator.FoundNodeIterator().found_node_iterator()
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':

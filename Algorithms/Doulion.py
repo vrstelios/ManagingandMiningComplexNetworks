@@ -3,9 +3,13 @@ import networkx as nx
 from numpy.random import choice
 import os
 
+# This algorithm sparsifies a graph by evaluating each edge based on a given value, P.
+# For each edge, we decide whether to keep or skip it.
+# The resulting graph is then saved as a new graph.
+
 class Doulion:
     @staticmethod
-    def Sparcify(original_graph_path, p):
+    def Sparsify(original_graph_path, p):
         # Create new Graph
         G = nx.Graph()
 
@@ -28,6 +32,4 @@ class Doulion:
         # Save new graph
         nx.write_edgelist(G_sparcified, output_path)
 
-        # Return true if the graph was succesfully created
-        return os.path.exists(output_path)
 

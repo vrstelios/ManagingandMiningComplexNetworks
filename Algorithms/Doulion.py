@@ -20,16 +20,13 @@ class Doulion:
 
         # Given a p value, add or skip edge
         for edge in list(G.edges()):
-            result = ["add", "skip"]
-            coin_result = choice(result, p=[p, 1-p])
-
-            if coin_result == "add":
-                G_sparcified.add_edge(edge[0], edge[1], weight=1 / p)
-
+            if choice([True, False], p=[p, 1 - p]):
+                # Add the edge to the sparsified graph with a weight
+                G_sparcified.add_edge(edge[0], edge[1])
 
         output_path = 'Graphs/Sparcified_Graph.csv'
 
         # Save new graph
-        nx.write_edgelist(G_sparcified, output_path)
+        nx.write_weighted_edgelist(G_sparcified, output_path)
 
 

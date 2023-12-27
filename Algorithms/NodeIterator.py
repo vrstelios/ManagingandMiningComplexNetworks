@@ -9,21 +9,30 @@ class FoundNodeIterator:
     def found_node_iterator():
         start_time = time.time()
 
-        df = pd.read_csv('Graphs/tvshow_edges.csv', delimiter=',')
+        df = pd.read_csv('Graphs/ca-GrQc.csv', delimiter=',')
         G = nx.from_pandas_edgelist(df, 'node_1', 'node_2')
 
-        node_List = G.nodes()
-        triangles = set()
+        triangles = []
+        visited_nodes = set()
 
-        for i in node_List:
-            neighbors = list(G.neighbors(i))  # found the neighbors
-            # creates pairs of neighbours
-            node_pairs = [(neighbor1, neighbor2) for idx, neighbor1 in enumerate(neighbors) for neighbor2 in neighbors[idx + 1:]]
-            # checked if these pairs are edges in the pair
-            for pair in node_pairs:
-                if pair in G.edges():
-                    triangle_pair_of_root = list(pair) + [i]
-                    triangles.add(tuple(sorted(triangle_pair_of_root)))
+        # Επιλέγουμε τον επόμενο κόμβο (v) για έλεγχο
+        for v in G.nodes():
+            if v in visited_nodes:
+                continue
+
+            visited_nodes.add(v)
+            # Παίρνουμε όλα τα ζευγάρια γειτόνων (u, w) του κόμβου v
+            neighbors_v = list(G.neighbors(v))
+            for i in range(len(neighbors_v)):
+                u = neighbors_v[i]
+                for j in range(i + 1, len(neighbors_v)):
+                    w = neighbors_v[j]
+
+                    # Ελέγχουμε αν υπάρχει ακμή μεταξύ των u και w
+                    if G.has_edge(u, w):
+                        # Αν υπάρχει ακμή, τότε υπάρχει τρίγωνο
+                        triangles.append((v, u, w))
+                        # Επιλέξτε ανάλογα με τις απαιτήσεις σας για εκτύπωση ή αποθήκευση
 
         print("Triangles are:", triangles, "For Node iterator")
         print("Number of triangles:", len(triangles), "For Node iterator")

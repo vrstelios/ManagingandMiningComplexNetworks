@@ -15,9 +15,8 @@ def main():
     #Doulion
     #Doulion.Doulion.Sparsify('Graphs/tvshow_edges.csv', 0.8)
     #Triest
-    Triest.Triest.run('Graphs/tvshow_edges.csv')
+    Triest.Triest.run('Graphs/tvshow_edges.csv', 10000)
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     main()

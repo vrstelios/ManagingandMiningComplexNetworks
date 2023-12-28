@@ -1,36 +1,57 @@
 import pandas as pd
 import random
-
-
+import networkx as nx
 class Triest:
-    @staticmethod
-    def run(original_graph_path):
-        # Load the graph data
-        df = pd.read_csv(original_graph_path)
+    def __init__(self, M):
+        self.M = M  # Size of the reservoir
+        self.sampled_edges = set()  # Reservoir of sampled edges
+        self.global_triangle_count = 0  # Global count of triangles
+        self.t = 0  # Total number of edges processed
 
-        # Initialize parameters
-        global_counter = 0
-        sampled_edges = set()
-        tau = 1000  # Size of the reservoir sample
+    # A biased coin flip used in reservoir sampling
+    def _flip_biased_coin(self):
+        probability = self.M / (self.t + 1)
+        return random.random() < probability
 
-        def update_counters(edge):
-            nonlocal global_counter, sampled_edges
+    # Handles the insertion of each edge.
+    # It uses reservoir sampling to decide whether to keep the new edge.
+    # Updates the triangle count accordingly
+    def handle_insertion(self, edge):
+        self.t += 1
+        if len(self.sampled_edges) < self.M or self._flip_biased_coin():
+            if len(self.sampled_edges) == self.M:
+                self.sampled_edges.remove(random.choice(tuple(self.sampled_edges)))
+            self.sampled_edges.add(edge)
+            self.update_triangle_count(edge)
 
-            global_counter += 1
-            if global_counter <= tau:
-                sampled_edges.add(edge)
-            else:
-                probability = tau / global_counter
-                if random.random() <= probability:
-                    remove_edge = random.sample(sampled_edges, 1)[0]
-                    sampled_edges.remove(remove_edge)
-                    sampled_edges.add(edge)
+    # Checks if a triangle is formed after a new edge insertion.
+    # Finds common neighbors of the two nodes in the new edge.
+    def update_triangle_count(self, edge):
+        u, v = edge
+        neighbors_u = {a for a, b in self.sampled_edges if b == u} | {b for a, b in self.sampled_edges if a == u}
+        neighbors_v = {a for a, b in self.sampled_edges if b == v} | {b for a, b in self.sampled_edges if a == v}
+        common_neighbors = neighbors_u.intersection(neighbors_v)
+        self.global_triangle_count += len(common_neighbors)
 
-        # Insert Edges
-        for idx, row in df.iterrows():
-            edge = (row['node_1'], row['node_2'])
-            update_counters(edge)
+    # Reads the graph and processes each edge.
+    # Print the estimated number of triangles.
+    @classmethod
+    def run(cls, filepath, M):
+        triest_instance = cls(M)
+        df = pd.read_csv(filepath)
+        for edge in df.itertuples(index=False):
+            triest_instance.handle_insertion((edge.node_1, edge.node_2))
 
-        # Calculate the estimated number of triangles
-        estimated_triangles = len(sampled_edges) * ((global_counter - 1) * (global_counter - 2)) / (tau * (tau - 1) * (tau - 2))
-        print(f"Estimated number of triangles: {estimated_triangles}")
+        print(f'Estimated number of triangles in the graph: {triest_instance.global_triangle_count}')
+
+        # !!!  !!!!
+        # Calculates the real number of triangles using the build in library. Not necessary for the project.
+        df = pd.read_csv(filepath)
+        G = nx.from_pandas_edgelist(df, source='node_1', target='node_2')
+        t = nx.triangles(G)
+        t_total = sum(t.values()) / 3
+
+        print(f"Total number of triangles: {t_total}")
+
+        # Remove block of code before Project Submition
+        # !!! !!!!

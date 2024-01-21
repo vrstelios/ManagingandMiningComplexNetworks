@@ -11,7 +11,9 @@ class FoundAllTriplets:
         start_time = time.time()
 
         #df = pd.read_csv('Graphs/tvshow_edges.csv', delimiter=',')
-        df = pd.read_csv('Graphs/ca-GrQc.csv', delimiter=',')
+        #df = pd.read_csv('Graphs/ca-GrQc.csv', delimiter=',')
+        #df = pd.read_csv('Graphs/new_sites_edges.csv', delimiter=',')
+        df = pd.read_csv('Graphs/artist_edges.csv', delimiter=',')
         G = nx.from_pandas_edgelist(df, 'node_1', 'node_2')
 
         triangles = set()
@@ -42,7 +44,15 @@ class FoundAllTriplets:
         end_time = time.time()
         print("Execution time:", end_time - start_time)
 
+        # ca-GrQc.csv
         # Number of triangles: 48260
         # Execution time: 2.0590288639068604
 
+        # new_sites_edges.csv
+        # Number of triangles: 387444
+        # Execution time: 68.65653371810913
+
+        # artist_edges.csv
+        # Number of triangles: 2273700
+        # Execution time: 846.8235864639282
 

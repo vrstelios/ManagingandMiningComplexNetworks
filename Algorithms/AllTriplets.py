@@ -4,16 +4,16 @@ import networkx as nx
 import itertools
 
 
-class FoundAllTriplets:
+class AllTriplets:
 
     @staticmethod
-    def found_all_triplets():
+    def all_triplets():
         start_time = time.time()
 
         #df = pd.read_csv('Graphs/tvshow_edges.csv', delimiter=',')
-        #df = pd.read_csv('Graphs/ca-GrQc.csv', delimiter=',')
+        df = pd.read_csv('Graphs/ca-GrQc.csv', delimiter=',')
         #df = pd.read_csv('Graphs/new_sites_edges.csv', delimiter=',')
-        df = pd.read_csv('Graphs/artist_edges.csv', delimiter=',')
+        # df = pd.read_csv('Graphs/artist_edges.csv', delimiter=',')
         G = nx.from_pandas_edgelist(df, 'node_1', 'node_2')
 
         triangles = set()
@@ -27,18 +27,6 @@ class FoundAllTriplets:
                             # Check if the triangle has already been detected
                             triangles.add(tuple(sorted([node1, node2, node3])))
 
-#        for i in range(0, len(edges_list)):
-#            for j in range(0, len(edges_list)):
-#                # check that have same root
-#                if edges_list[i][0] == edges_list[j][0]:
-#                    # check there are the graph the two edges
-#                    if (edges_list[i][1], edges_list[j][1]) in edges_list:
-#                        common_node = edges_list[i][0]
-#                        node_i = edges_list[i][1]
-#                        node_j = edges_list[j][1]
-#                        triangles.add(tuple(sorted([common_node, node_i, node_j])))
-
-        print("Triangles are:", triangles, "For AllTriplets")
         print("Number of triangles:", len(triangles), "For AllTriplets")
 
         end_time = time.time()

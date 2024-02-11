@@ -5,15 +5,22 @@ from Algorithms import Doulion
 from Algorithms import Triest
 
 def main():
+
     # call the algorithms
     # AllTriplets
-    # AllTriplets.FoundAllTriplets().found_all_triplets()
+    AllTriplets.AllTriplets().all_triplets()
     # NodeIterator
-    # NodeIterator.FoundNodeIterator().found_node_iterator()
+    # NodeIterator.NodeIterator().node_iterator('Graphs/tvshow_edges.csv')
     # CompactForward
-    # CompactForward.FoundCompactForward.found_compact_forward()
+    # CompactForward.CompactForward.compact_forward()
     # Doulion
     # Doulion.Doulion.Sparsify('Graphs/tvshow_edges.csv', 0.8)
+    # triangles = NodeIterator.NodeIterator().node_iterator('Graphs/Sparcified_Graph.csv')
+    # print(triangles)
+    # if triangles is not None:
+    #     print('Estimation of total triangles in the original graph are:', triangles / (0.8 ** 3))
+    # else:
+    #     print("Triangle count not available.")
     # Triest
     # Triest.Triest.run('Graphs/tvshow_edges.csv', 10000)
 

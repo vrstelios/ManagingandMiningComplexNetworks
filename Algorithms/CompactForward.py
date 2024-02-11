@@ -3,16 +3,16 @@ import pandas as pd
 import networkx as nx
 
 
-class FoundCompactForward:
+class CompactForward:
 
     @staticmethod
-    def found_compact_forward():
+    def compact_forward():
         start_time = time.time()
 
         # df = pd.read_csv('Graphs/tvshow_edges.csv', delimiter=',')
-        # df = pd.read_csv('Graphs/ca-GrQc.csv', delimiter=',')
+        df = pd.read_csv('Graphs/ca-GrQc.csv', delimiter=',')
         # df = pd.read_csv('Graphs/new_sites_edges.csv', delimiter=',')
-        df = pd.read_csv('Graphs/artist_edges.csv', delimiter=',')
+        # df = pd.read_csv('Graphs/artist_edges.csv', delimiter=',')
         G = nx.from_pandas_edgelist(df, 'node_1', 'node_2')
 
         triangles = set()
@@ -28,7 +28,6 @@ class FoundCompactForward:
                     triangles.add(tuple(sorted([u, v, w])))
 
 
-        print("Triangles are:", triangles, "For Compact Forward")
         print("Number of triangles:", len(triangles), "For Compact Forward")
 
         end_time = time.time()

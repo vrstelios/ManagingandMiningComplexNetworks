@@ -44,14 +44,5 @@ class Triest:
 
         print(f'Estimated number of triangles in the graph: {triest_instance.global_triangle_count}')
 
-        # !!!  !!!!
-        # Calculates the real number of triangles using the build in library. Not necessary for the project.
-        df = pd.read_csv(filepath)
-        G = nx.from_pandas_edgelist(df, source='node_1', target='node_2')
-        t = nx.triangles(G)
-        t_total = sum(t.values()) / 3
 
-        print(f"Total number of triangles: {t_total}")
 
-        # Remove block of code before Project Submition
-        # !!! !!!!
